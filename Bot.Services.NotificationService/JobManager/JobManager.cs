@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EventService;
 using Hangfire;
 using Hangfire.Storage;
-using NotificationService.Notification;
 
 namespace NotificationService.JobManagment
 {
@@ -12,13 +12,13 @@ namespace NotificationService.JobManagment
   {
 
 
-    private readonly INotificationManager _notificationManager;
+    private readonly IEventManager _eventManager;
 
     public JobManager(
-      INotificationManager notificationManager
+      IEventManager eventManager
     )
     {
-      _notificationManager = notificationManager;
+      _eventManager = eventManager;
     }
 
     [Obsolete]
@@ -26,13 +26,13 @@ namespace NotificationService.JobManagment
     {
       var timeZone = TimeZone.CurrentTimeZone;
       var jobId = Guid.NewGuid().ToString();
-      RecurringJob.AddOrUpdate(jobId, () => _notificationManager.ExecuteRegularJob(jobId), cronExpression, TimeZoneInfo.Local);
+      RecurringJob.AddOrUpdate(jobId, () => _eventManager.ExecuteRegularEvent(jobId), cronExpression, TimeZoneInfo.Local);
       return jobId;
     }
 
     public bool UpdateRecurringJob(string jobId, string cronExpression)
     {
-      RecurringJob.AddOrUpdate(jobId, () => _notificationManager.ExecuteRegularJob(jobId), cronExpression, TimeZoneInfo.Local);
+      RecurringJob.AddOrUpdate(jobId, () => _eventManager.ExecuteRegularEvent(jobId), cronExpression, TimeZoneInfo.Local);
       return true;
     }
 
@@ -47,9 +47,8 @@ namespace NotificationService.JobManagment
       var recurringJobs = JobStorage.Current.GetConnection().GetRecurringJobs();
       var job = recurringJobs.Where(x => x.Id == jobId).FirstOrDefault();
       if (job == null)
-      {
         return "Значение не найдено";
-      }
+
       var cronExpression = job.Cron;
       return cronExpression;
     }

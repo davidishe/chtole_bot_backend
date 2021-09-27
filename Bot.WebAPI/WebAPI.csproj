@@ -8,11 +8,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Bot.Infrastructure\Infrastructure.csproj"/>
     <ProjectReference Include="..\Bot.Core\Core.csproj"/>
-    <ProjectReference Include="..\Bot.NotificationService\NotificationService.csproj"/>
-    <ProjectReference Include="..\Bot.Infrastructure.Database\Bot.Infrastructure.Database.csproj"/>
+    <ProjectReference Include="..\Bot.Services.NotificationService\Bot.Services.NotificationService.csproj"/>
     <ProjectReference Include="..\Bot.Infrastructure.Specifications\Bot.Infrastructure.Specifications.csproj"/>
     <ProjectReference Include="..\Bot.Services.Telegram\Bot.Services.Telegram.csproj"/>
     <ProjectReference Include="..\Bot.Identity\Bot.Identity.csproj"/>
+    <ProjectReference Include="..\Bot.Infrastructure.Database\Bot.Infrastructure.Database.csproj"/>
     <ProjectReference Include="..\Bot.Identity.Database\Bot.Identity.Database.csproj"/>
 
 

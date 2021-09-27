@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Core.Models;
 using Infrastructure.Database;
+using Microsoft.Extensions.Logging;
 
 namespace WebAPI.Controllers
 {
@@ -14,7 +15,10 @@ namespace WebAPI.Controllers
   {
 
 
-    public RegionsController(IGenericRepository<Region> context) : base(context)
+    public RegionsController(
+      IGenericRepository<Region> context,
+      ILogger<RegionsController> logger
+    ) : base(context, logger)
     {
     }
 

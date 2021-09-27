@@ -9,9 +9,7 @@ namespace Core.Dtos
   {
     public string Name { get; set; }
     public bool IsEnabled { get; set; }
-
-
-
+    public DateTime BirthdayDate { get; set; }
   };
 }
 

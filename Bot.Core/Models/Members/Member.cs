@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bot.Core.Models.Members;
 
 namespace Core.Models
 {
@@ -14,13 +15,12 @@ namespace Core.Models
       Name = name;
       IsEnabled = isEnabled;
       BirthdayDate = birthdayDate;
-
     }
 
     public string Name { get; set; }
     public bool IsEnabled { get; set; }
     public DateTime BirthdayDate { get; set; }
-    public virtual ICollection<MemberItem>? MemberItems { get; set; }
+    public virtual ICollection<MemberChat>? MemberChats { get; set; }
 
   }
 }

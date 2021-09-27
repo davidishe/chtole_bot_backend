@@ -4,18 +4,18 @@ using Hangfire;
 using WebAPI.Controllers;
 using Core.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using NotificationService.Notification;
+using EventService;
 
 namespace WebAPI.Controllers
 {
   public class NotificationController : BaseApiController
   {
-    public INotificationManager _notificationManager;
+    public IEventManager _eventManager;
     public NotificationController(
-      INotificationManager notificationManager
+      IEventManager eventManager
     )
     {
-      _notificationManager = notificationManager;
+      _eventManager = eventManager;
     }
 
     [HttpPost]
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
       var timeZone = TimeZone.CurrentTimeZone;
       var jobId = Guid.NewGuid().ToString();
 
-      RecurringJob.AddOrUpdate(jobId, () => _notificationManager.ExecuteRegularJob(jobId), "* 56 20 * * ?", TimeZoneInfo.Local);
+      RecurringJob.AddOrUpdate(jobId, () => _eventManager.ExecuteRegularEvent(jobId), "* 56 20 * * ?", TimeZoneInfo.Local);
       return Ok(jobId);
     }
 
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
     public IActionResult Recurring(JobForUpdateDto jobForUpdateDto)
     {
       var timeZone = TimeZoneInfo.GetSystemTimeZones();
-      RecurringJob.AddOrUpdate(jobForUpdateDto.JobId, () => _notificationManager.ExecuteRegularJob(jobForUpdateDto.JobId), jobForUpdateDto.CronExpression, TimeZoneInfo.Local);
+      RecurringJob.AddOrUpdate(jobForUpdateDto.JobId, () => _eventManager.ExecuteRegularEvent(jobForUpdateDto.JobId), jobForUpdateDto.CronExpression, TimeZoneInfo.Local);
       return Ok(200);
     }
 

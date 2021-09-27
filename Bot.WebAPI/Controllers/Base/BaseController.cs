@@ -15,11 +15,13 @@ namespace WebAPI.Controllers
   public class BaseController<TEntity> : ControllerBase where TEntity : BaseEntity
   {
 
-    private IGenericRepository<TEntity> _repo { get; set; }
+    private readonly IGenericRepository<TEntity> _repo;
+    private readonly ILogger<BaseController<TEntity>> _logger;
 
-    public BaseController(IGenericRepository<TEntity> repo)
+    public BaseController(IGenericRepository<TEntity> repo, ILogger<BaseController<TEntity>> logger)
     {
       _repo = repo;
+      _logger = logger;
     }
 
 
@@ -68,6 +70,7 @@ namespace WebAPI.Controllers
         return BadRequest("У объекта должен быть id");
 
       _repo.Update(entity);
+      _logger.LogInformation("значение было обновлено через update");
       return Ok(entity);
     }
 

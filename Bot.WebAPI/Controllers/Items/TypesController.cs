@@ -11,6 +11,7 @@ using Infrastructure.Helpers;
 using Core.Models;
 using Infrastructure.Database;
 using Bot.Infrastructure.Specifications;
+using Microsoft.Extensions.Logging;
 
 namespace WebAPI.Controllers
 {
@@ -21,7 +22,10 @@ namespace WebAPI.Controllers
   {
 
 
-    public TypesController(IGenericRepository<ItemType> context) : base(context)
+    public TypesController(
+      IGenericRepository<ItemType> context,
+      ILogger<TypesController> logger)
+    : base(context, logger)
     {
     }
 

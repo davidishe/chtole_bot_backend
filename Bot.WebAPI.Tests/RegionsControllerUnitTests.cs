@@ -7,6 +7,7 @@ using Core.Models;
 using Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WebAPI.Controllers;
 using Xunit;
 
@@ -17,12 +18,15 @@ namespace Bot.WebAPI.Tests
 
     private readonly RegionsController _controller;
     private readonly IGenericRepository<Region> _membersRepo;
+    private readonly ILogger<RegionsController> _logger;
+
 
 
     public RegionsControllerUnitTests()
     {
       _controller = new RegionsController(
-        _membersRepo
+        _membersRepo,
+        _logger
       );
     }
 

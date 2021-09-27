@@ -23,7 +23,7 @@ namespace Infrastructure.Database.SeedData
 
         if (!context.Regions.Any())
         {
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/regions.json");
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/regions.json");
           var items = JsonSerializer.Deserialize<List<Region>>(itemsData);
           foreach (var item in items)
           {
@@ -35,7 +35,7 @@ namespace Infrastructure.Database.SeedData
 
         if (!context.ItemTypes.Any())
         {
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/types.json");
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/types.json");
           var items = JsonSerializer.Deserialize<List<ItemType>>(itemsData);
           foreach (var item in items)
           {
@@ -47,7 +47,7 @@ namespace Infrastructure.Database.SeedData
 
         if (!context.BankOffices.Any())
         {
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/bankoffices.json");
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/bankoffices.json");
           var items = JsonSerializer.Deserialize<List<Office>>(itemsData);
           foreach (var item in items)
           {
@@ -58,7 +58,7 @@ namespace Infrastructure.Database.SeedData
 
         if (!context.Members.Any())
         {
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/members.json");
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/members.json");
           var items = JsonSerializer.Deserialize<List<Member>>(itemsData);
           foreach (var item in items)
           {
@@ -70,7 +70,7 @@ namespace Infrastructure.Database.SeedData
 
         if (!context.Items.Any())
         {
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/items.json");
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/items.json");
           var items = JsonSerializer.Deserialize<List<Item>>(itemsData);
 
 

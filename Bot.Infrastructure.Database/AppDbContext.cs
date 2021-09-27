@@ -1,3 +1,4 @@
+using Bot.Core.Models.Members;
 using Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -17,13 +18,18 @@ namespace Bot.Infrastructure.Database
     public DbSet<Item> Items { get; set; }
     public DbSet<Region> Regions { get; set; }
     public DbSet<Member> Members { get; set; }
-    public DbSet<MemberItem> MemberItems { get; set; }
+    // public DbSet<ItemChat> ItemChats { get; set; }
+    // public DbSet<MemberChat> MemberChats { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
-      modelBuilder.Entity<MemberItem>()
-          .HasKey(cs => new { cs.ItemId, cs.MemberId });
+      modelBuilder.Entity<ItemChat>()
+          .HasKey(cs => new { cs.ChatId, cs.ItemId });
+
+      modelBuilder.Entity<MemberChat>()
+        .HasKey(cs => new { cs.ChatId, cs.MemberId });
 
       base.OnModelCreating(modelBuilder);
       modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

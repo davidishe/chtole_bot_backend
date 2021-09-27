@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models
 {
@@ -40,7 +38,7 @@ namespace Core.Models
     public ItemType? ItemType { get; set; }
     public int? ItemTypeId { get; set; }
     public DateTime EnrolledDate { get; set; } = DateTime.Now;
-    public virtual ICollection<MemberItem> MemberItems { get; set; }
+    public virtual ICollection<ItemChat> ItemChats { get; set; }
 
   }
 

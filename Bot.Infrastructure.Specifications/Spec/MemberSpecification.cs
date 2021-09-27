@@ -10,9 +10,9 @@ namespace Bot.Infrastructure.Specifications
     : base(x =>
           (string.IsNullOrEmpty(userParams.Search) || x.Name.ToLower().Contains(userParams.Search.ToLower())))
     {
-      AddInclude(x => x.MemberItems);
+      AddInclude(x => x.MemberChats);
 
-      ApplyPaging((userParams.PageSize * (userParams.PageIndex)), userParams.PageSize);
+      ApplyPaging(userParams.PageSize * userParams.PageIndex, userParams.PageSize);
 
       if (!string.IsNullOrEmpty(userParams.sort))
       {
@@ -32,14 +32,14 @@ namespace Bot.Infrastructure.Specifications
     public MemberSpecification()
     : base()
     {
-      AddInclude(x => x.MemberItems);
+      AddInclude(x => x.MemberChats);
     }
 
 
 
     public MemberSpecification(int id) : base(x => x.Id == id)
     {
-      AddInclude(x => x.MemberItems);
+      AddInclude(x => x.MemberChats);
     }
   }
 

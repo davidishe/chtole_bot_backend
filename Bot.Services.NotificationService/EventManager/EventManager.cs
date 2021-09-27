@@ -1,29 +1,26 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Bot.Infrastructure.Specifications;
-using Core.Dtos;
 using Core.Models;
 using Infrastructure.Database;
 using Infrastructure.Services.TelegramService;
 using Microsoft.Extensions.Logging;
 
-namespace NotificationService.Notification
+namespace EventService.Event
 {
 
-  public class NotificationManager : INotificationManager
+  public class EventManager : IEventManager
   {
     private readonly ITelegramService _telegramService;
     private readonly IGenericRepository<Item> _itemsRepo;
     private readonly IGenericRepository<Member> _membersRepo;
-    private readonly ILogger<NotificationManager> _logger;
+    private readonly ILogger<EventManager> _logger;
 
 
-    public NotificationManager(
+    public EventManager(
       ITelegramService telegrammService,
-      ILogger<NotificationManager> logger,
+      ILogger<EventManager> logger,
       IGenericRepository<Item> itemRepo,
       IGenericRepository<Member> membersRepo
 
@@ -35,7 +32,7 @@ namespace NotificationService.Notification
       _membersRepo = membersRepo;
     }
 
-    public Task ExecuteRegularJob(string jobId)
+    public Task ExecuteRegularEvent(string jobId)
     {
       var spec = new ItemSpecification();
       var items = _itemsRepo.ListAsync(spec).Result;
@@ -51,35 +48,27 @@ namespace NotificationService.Notification
     }
 
 
-    public Task ExecuteHappyBirthdayJob(string jobId)
+    public Task SetHappyBirthdayEvent(string jobId)
     {
       var spec = new ItemSpecification();
       var items = _itemsRepo.ListAsync(spec).Result;
       var item = items.Where(x => x.JobId == jobId).FirstOrDefault();
-      var membersWithBirthday = GetMessageForBirthdayMembers().Result;
+      // var membersWithBirthday = GetMessageForBirthdayMembers().Result;
 
-      foreach (var member in membersWithBirthday)
-      {
-        var messageToSend = GetRegularMessageWithSpeakerAsync(item.MessageText).Result;
-        _logger.LogInformation($"{DateTime.Now} было отправлено сообщение {messageToSend} в чат {item.ChatId}");
-        _telegramService.SendMessage(item.ChatId, messageToSend);
+      // foreach (var member in membersWithBirthday)
+      // {
+      //   var messageToSend = GetRegularMessageWithSpeakerAsync(item.MessageText).Result;
+      //   _logger.LogInformation($"{DateTime.Now} было отправлено сообщение {messageToSend} в чат {item.ChatId}");
+      //   _telegramService.SendMessage(item.ChatId, messageToSend);
 
-      }
+      // }
 
 
       return Task.CompletedTask;
     }
 
 
-    private async Task<Member[]> GetMessageForBirthdayMembers()
-    {
 
-      var spec = new MemberSpecification();
-      var members = await _membersRepo.ListAsync(spec);
-      var memberWithBirthday = members.Where(x => x.BirthdayDate.Date.Month == DateTime.Now.Date.Month && x.BirthdayDate.Date.Day == DateTime.Now.Date.Day);
-      var membersArray = memberWithBirthday.ToArray();
-      return membersArray;
-    }
 
 
     private async Task<string> GetRegularMessageWithSpeakerAsync(string message)

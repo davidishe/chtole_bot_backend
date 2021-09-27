@@ -11,6 +11,7 @@ using Infrastructure.Helpers;
 using Core.Models;
 using Infrastructure.Database;
 using Bot.Core.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +21,10 @@ namespace WebAPI.Controllers
   public class OfficeController : BaseController<Office>
   {
 
-    public OfficeController(IGenericRepository<Office> context) : base(context)
+    public OfficeController(
+      IGenericRepository<Office> context,
+      ILogger<OfficeController> logger) :
+      base(context, logger)
     {
     }
 

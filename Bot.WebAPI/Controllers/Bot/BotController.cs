@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -17,12 +18,16 @@ namespace WebAPI.Controllers
     private readonly string _telegramToken;
     private readonly string _botName;
 
+    private readonly ILogger<BotController> _logger;
+
     public BotController(
-      IConfiguration config
+      IConfiguration config,
+      ILogger<BotController> logger
     )
     {
       _telegramToken = config.GetSection("BotSettings:TelegramToken").Value;
       _botName = config.GetSection("BotSettings:BotName").Value;
+      _logger = logger;
     }
 
 
@@ -31,11 +36,12 @@ namespace WebAPI.Controllers
     [Route("message/update")]
     public async Task<IActionResult> Post([FromBody] Update update)
     {
-      if (update == null) return Ok(404);
-      var client = new TelegramBotClient(_telegramToken);
+      if (update == null)
+        return Ok(404);
 
       var message = update.Message;
-      if (message == null) return Ok(403);
+      if (message == null)
+        return Ok(403);
 
 
       if (message.Text == null)
@@ -46,15 +52,11 @@ namespace WebAPI.Controllers
         return Ok("Нет идентификатора чата");
 
       var chatId = update.Message.Chat.Id;
+      _logger.LogInformation(Guid.NewGuid().ToString(), null, $"Пришло сообщение на webhook {update.Message}");
 
-      //TODO: логировать что пришло на хук
-
-
+      var client = new TelegramBotClient(_telegramToken);
       if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message) && message.Text.Contains(_botName))
-      {
         await client.SendTextMessageAsync(chatId, $"ответ на сообщение '{message.Text}' в чате  c Id: {chatId}");
-      }
-
 
       return Ok();
     }

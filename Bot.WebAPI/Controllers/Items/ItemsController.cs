@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.JobManagment;
-using NotificationService.Notification;
 using Infrastructure.Database;
 using Bot.Infrastructure.Specifications;
 using Core.Helpers;
 using Bot.Identity.Extensions;
+using EventService;
 
 namespace WebAPI.Controllers
 {
@@ -27,34 +27,24 @@ namespace WebAPI.Controllers
 
     private readonly IGenericRepository<Item> _itemsRepo;
     private readonly IGenericRepository<ItemType> _itemTypeRepo;
-    private readonly IGenericRepository<ItemSubType> _itemSubTypeRepo;
-    private readonly IGenericRepository<Office> _officeRepo;
     private readonly IMapper _mapper;
     private readonly UserManager<HavenAppUser> _userManager;
     private readonly IJobManager _jobManager;
-    private readonly INotificationManager _notificationManager;
-
 
 
     public ItemsController(
       IGenericRepository<Item> productsRepo,
       IGenericRepository<ItemType> productTypeRepo,
-      IGenericRepository<ItemSubType> itemSubTypeRepo,
-      IGenericRepository<Office> officeRepo,
       IMapper mapper,
       UserManager<HavenAppUser> userManager,
-      IJobManager jobManager,
-      INotificationManager notificationManager
+      IJobManager jobManager
     )
     {
       _itemsRepo = productsRepo;
       _itemTypeRepo = productTypeRepo;
-      _itemSubTypeRepo = itemSubTypeRepo;
       _mapper = mapper;
-      _officeRepo = officeRepo;
       _userManager = userManager;
       _jobManager = jobManager;
-      _notificationManager = notificationManager;
     }
 
 
@@ -131,29 +121,7 @@ namespace WebAPI.Controllers
 
     #endregion
 
-    #region 2. Get regions & types functionality
-    [AllowAnonymous]
-    [HttpGet]
-    [Route("types")]
-    public async Task<ActionResult<IReadOnlyList<ItemType>>> GetProductTypesByIdAsync()
-    {
-      var spec = new BaseSpecification<ItemType>();
-      var product = await _itemTypeRepo.ListAsync(spec);
-      await SetTimeOut();
-      return Ok(product);
-    }
 
-    [AllowAnonymous]
-    [HttpGet]
-    [Route("subtypes")]
-    public async Task<ActionResult<IReadOnlyList<ItemSubType>>> GetByIdAsync()
-    {
-      var spec = new BaseSpecification<ItemSubType>();
-      var item = await _itemSubTypeRepo.ListAsync(spec);
-      await SetTimeOut();
-      return Ok(item);
-    }
-    #endregion
 
     #region 3. Products CRUD functionality
     /*
@@ -167,7 +135,12 @@ namespace WebAPI.Controllers
     public async Task<ActionResult<Item>> Create(ItemDto itemDto)
     {
 
+      var userId = 2;
       var user = await _userManager.FindByClaimsCurrentUser(HttpContext.User);
+
+      if (user != null)
+        userId = user.Id;
+
       await SetTimeOut();
 
       var jobId = _jobManager.AddRecurringJob(itemDto.CronExpression);
@@ -177,8 +150,7 @@ namespace WebAPI.Controllers
         messageText: itemDto.MessageText,
         name: itemDto.Name,
         jobId: jobId,
-        // TODO: get id from user object
-        authorId: 2,
+        authorId: userId,
         chatId: itemDto.ChatId,
         itemTypeId: (int)itemDto.ItemTypeId,
         itemType: _itemTypeRepo.GetByIdAsync((int)itemDto.ItemTypeId).Result

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Bot.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "Bot.WebAPI\WebAPI.csproj", "{CA53E7F5-110B-44B5-ABF8-2A10F0D25750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "Bot.NotificationService\NotificationService.csproj", "{CCEC2CC0-F7B0-4C3F-A731-138B57F77062}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Services.NotificationService", "Bot.Services.NotificationService\Bot.Services.NotificationService.csproj", "{CCEC2CC0-F7B0-4C3F-A731-138B57F77062}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.WebAPI.Tests", "Bot.WebAPI.Tests\Bot.WebAPI.Tests.csproj", "{11B94425-7D30-4046-AC3A-1CFB34CD13D5}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Identity", "Bot.Identity\Bot.Identity.csproj", "{BD6BBC3D-1AA1-4180-BFE8-4149710C46FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Identity.Database", "Bot.Identity.Database\Bot.Identity.Database.csproj", "{6AF62801-9194-4DE8-B502-E0896E7A1694}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Services.BirthdayService", "Bot.Services.BirthdayService\Bot.Services.BirthdayService.csproj", "{74A90C24-C4AC-488A-B0E0-BF3FE1603409}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -156,5 +158,17 @@ Global
 		{6AF62801-9194-4DE8-B502-E0896E7A1694}.Release|x64.Build.0 = Release|Any CPU
 		{6AF62801-9194-4DE8-B502-E0896E7A1694}.Release|x86.ActiveCfg = Release|Any CPU
 		{6AF62801-9194-4DE8-B502-E0896E7A1694}.Release|x86.Build.0 = Release|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Debug|x64.Build.0 = Debug|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Debug|x86.Build.0 = Debug|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Release|x64.ActiveCfg = Release|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Release|x64.Build.0 = Release|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Release|x86.ActiveCfg = Release|Any CPU
+		{74A90C24-C4AC-488A-B0E0-BF3FE1603409}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

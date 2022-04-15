@@ -109,6 +109,11 @@ namespace Infrastructure.Database
       return result;
     }
 
+    public async Task<IReadOnlyList<T>> GetAllAsync()
+    {
+      return await _context.Set<T>().ToListAsync();
+    }
+
     #endregion
 
 

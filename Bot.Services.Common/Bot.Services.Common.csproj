@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Telegram.Bot" Version="16.0.2"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.14"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.14"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bot.Core\Core.csproj"/>
+    <ProjectReference Include="..\Bot.Infrastructure.Database/Bot.Infrastructure.Database.csproj"/>
+
+  </ItemGroup>
+
+</Project>

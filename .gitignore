@@ -11,3 +11,5 @@ publish
 Assets
 Migrations
 .vs
+appsettings.Development.json
+creds.conf

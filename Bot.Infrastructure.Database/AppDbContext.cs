@@ -12,14 +12,12 @@ namespace Bot.Infrastructure.Database
       Database.EnsureCreated();
     }
 
-    public DbSet<Office> BankOffices { get; set; }
     public DbSet<ItemType> ItemTypes { get; set; }
     public DbSet<ItemSubType> ItemSubTypes { get; set; }
     public DbSet<Item> Items { get; set; }
     public DbSet<Region> Regions { get; set; }
     public DbSet<Member> Members { get; set; }
-    // public DbSet<ItemChat> ItemChats { get; set; }
-    // public DbSet<MemberChat> MemberChats { get; set; }
+    public DbSet<Reviewer> Reviewers { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

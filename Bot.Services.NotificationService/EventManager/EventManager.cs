@@ -41,7 +41,7 @@ namespace EventService.Event
       _logger.LogInformation($"{DateTime.Now} было отправлено сообщение {messageToSend} в чат {item.ChatId}");
 
       DayOfWeek dayToday = DateTime.Now.DayOfWeek;
-      if ((dayToday != DayOfWeek.Saturday) && (dayToday != DayOfWeek.Sunday))
+      if ((dayToday != DayOfWeek.Saturday) && (dayToday != DayOfWeek.Sunday) && !item.Status)
         _telegramService.SendMessage(item.ChatId, messageToSend);
 
       return Task.CompletedTask;

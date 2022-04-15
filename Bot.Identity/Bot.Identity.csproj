@@ -5,19 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Core\Core.csproj"/>
-    <ProjectReference Include="..\Bot.Identity.Database\Bot.Identity.Database.csproj"/>
+    <ProjectReference Include="..\Bot.Core\Core.csproj" />
+    <ProjectReference Include="..\Bot.Identity.Database\Bot.Identity.Database.csproj" />
 
   </ItemGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0"/>
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.1"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.3"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.8"/>
-    <PackageReference Include="Google.Apis.Auth" Version="1.49.0"/>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.8" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
   </ItemGroup>
   
 </Project>

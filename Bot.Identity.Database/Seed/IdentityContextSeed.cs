@@ -23,22 +23,22 @@ namespace Identity.Database.SeedData
       try
       {
 
-        if (!context.UserPosition.Any())
-        {
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/userpositions.json");
-          var items = JsonSerializer.Deserialize<List<UserPosition>>(itemsData);
-          foreach (var item in items)
-          {
-            context.UserPosition.Add(item);
-          }
-          await context.SaveChangesAsync();
-        }
+        // if (!context.UserPositions.Any())
+        // {
+        //   var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/userpositions.json");
+        //   var items = JsonSerializer.Deserialize<List<UserPosition>>(itemsData);
+        //   foreach (var item in items)
+        //   {
+        //     context.UserPositions.Add(item);
+        //   }
+        //   await context.SaveChangesAsync();
+        // }
 
 
         if (!userManager.Users.Any())
         {
 
-          var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/users.json");
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/users.json");
           var users = JsonSerializer.Deserialize<List<AppUser>>(itemsData);
           foreach (var user in users)
           {

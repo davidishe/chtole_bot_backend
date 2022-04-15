@@ -32,6 +32,17 @@ namespace Infrastructure.Database.SeedData
           await context.SaveChangesAsync();
         }
 
+        if (!context.Reviewers.Any())
+        {
+          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/reviewers.json");
+          var items = JsonSerializer.Deserialize<List<Reviewer>>(itemsData);
+          foreach (var item in items)
+          {
+            context.Reviewers.Add(item);
+          }
+          await context.SaveChangesAsync();
+        }
+
 
         if (!context.ItemTypes.Any())
         {
@@ -45,16 +56,16 @@ namespace Infrastructure.Database.SeedData
         }
 
 
-        if (!context.BankOffices.Any())
-        {
-          var itemsData = File.ReadAllText(path + @"/Seed/SeedData/bankoffices.json");
-          var items = JsonSerializer.Deserialize<List<Office>>(itemsData);
-          foreach (var item in items)
-          {
-            context.BankOffices.Add(item);
-          }
-          await context.SaveChangesAsync();
-        }
+        // if (!context.BankOffices.Any())
+        // {
+        //   var itemsData = File.ReadAllText(path + @"/Seed/SeedData/bankoffices.json");
+        //   var items = JsonSerializer.Deserialize<List<Office>>(itemsData);
+        //   foreach (var item in items)
+        //   {
+        //     context.BankOffices.Add(item);
+        //   }
+        //   await context.SaveChangesAsync();
+        // }
 
         if (!context.Members.Any())
         {

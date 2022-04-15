@@ -14,7 +14,7 @@ namespace Bot.Identity.Database
     }
 
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-    public DbSet<UserPosition> UserPosition { get; set; }
+    // public DbSet<UserPosition> UserPositions { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -6,6 +6,10 @@ using Infrastructure.Services.ResponseCacheService;
 using Infrastructure.Database;
 using Infrastructure.Database.UnitOfWork;
 using Bot.Core.Responses;
+using Infrastructure.Services.TaskManagerService;
+using Bot.Infrastructure.Database;
+using Core.Models;
+using Bot.Infrastructure;
 
 namespace Infrastructure.Extensions
 {
@@ -16,7 +20,7 @@ namespace Infrastructure.Extensions
       services.AddSingleton<IResponseCacheService, ResponseCacheService>();
       services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
       services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+      services.AddScoped<ITaskManagerService, TaskManagerService>();
 
 
       services.Configure<ApiBehaviorOptions>(options =>

@@ -2,13 +2,10 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Core.Domain;
 using Core.Dtos;
 using Core.Identity;
 using Core.Models.Contracts;
-using Core.Models.Identity;
-using Core.Options;
 
 namespace Bot.Identity.Services
 {

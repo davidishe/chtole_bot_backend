@@ -41,7 +41,6 @@ namespace Bot.Identity.Database.Extensions
       services.AddScoped<ITokenService, TokenService>();
       services.AddScoped<IIdentityService, IdentityService>();
       services.AddScoped<IRoleManagerService, RoleManagerService>();
-      services.AddScoped<IUserPositionsService, UserPositionsService>();
 
 
       // facebook settings

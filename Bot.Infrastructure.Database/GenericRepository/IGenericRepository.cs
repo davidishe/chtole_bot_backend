@@ -11,6 +11,9 @@ namespace Infrastructure.Database
     Task<T> GetByIdAsync(int id);
     Task<T> GetEntityWithSpec(ISpecification<T> spec);
     Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
+
+    Task<IReadOnlyList<T>> GetAllAsync();
+
     Task<int> CountAsync(ISpecification<T> spec);
     Task<T> AddEntityAsync(T entity);
     T Update(T entity);

@@ -17,7 +17,8 @@ namespace Core.Models
       ItemType itemType,
       string chatId,
       string name,
-      string? jobId
+      string? jobId,
+      bool status
     )
     {
       MessageText = messageText;
@@ -27,6 +28,7 @@ namespace Core.Models
       ChatId = chatId;
       Name = name;
       JobId = jobId;
+      Status = status;
     }
 
 
@@ -37,6 +39,7 @@ namespace Core.Models
     public string Name { get; set; }
     public ItemType? ItemType { get; set; }
     public int? ItemTypeId { get; set; }
+    public bool Status { get; set; }
     public DateTime EnrolledDate { get; set; } = DateTime.Now;
     public virtual ICollection<ItemChat> ItemChats { get; set; }
 

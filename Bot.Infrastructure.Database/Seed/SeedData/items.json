@@ -1,10 +1,10 @@
-[
-  {
+[{
     "MessageText": "hallo every body! это тестовое сообщение",
     "AuthorId": 2,
     "ChatId": "-550455055",
     "Name": "Дейли",
     "ItemTypeId": 2,
+    "Status": true,
     "JobId": "9e9d6d7f-dbcc-4e02-9506-392a1f93cf1d"
   },
   {
@@ -13,6 +13,7 @@
     "ChatId": "-550455055",
     "Name": "Ретро",
     "ItemTypeId": 2,
+    "Status": true,
     "JobId": "9e9d6d7f-dbcc-4e02-9506-392a1f93cf1d"
   },
   {
@@ -21,6 +22,7 @@
     "ChatId": "-550455055",
     "Name": "Планинг",
     "ItemTypeId": 2,
+    "Status": true,
     "JobId": "9e9d6d7f-dbcc-4e02-9506-392a1f93cf1d"
   }
 ]

@@ -13,11 +13,8 @@ namespace Bot.Identity.Services
   {
     private const string getAccessTokenUrl = "https://oauth2.googleapis.com/token?code={0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type=authorization_code";
     private const string tokenValidationUrl = "https://oauth2.googleapis.com/tokeninfo?access_token={0}";
-    // private const string UserInfoUrl = "https://graph.facebook.com/me?fields=first_name,last_name,picture,email&access_token={0}";
-
     private const string UserInfoUrl = "https://openidconnect.googleapis.com/v1/userinfo?access_token={0}";
 
-    // private readonly IConfiguration _config;
     private readonly string _appId;
     private readonly string _appSecret;
     private readonly string _redirectUri;
@@ -53,10 +50,6 @@ namespace Bot.Identity.Services
 
     public async Task<AccesssTokenResponse> GetAccessTokenAsync(string code)
     {
-      // var formattedUrl = string.Format(getAccessTokenUrl, code, _appId, _appSecret, "https://localhost:4200/account");
-      // var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
-      // var responseAsString = await result.Content.ReadAsStringAsync();
-      // return JsonConvert.DeserializeObject<AccesssTokenResponse>(responseAsString);
 
       // TODO: refactor AccesssTokenResponse object for google fields
       var formattedUrl = string.Format(getAccessTokenUrl, code, _appId, _appSecret, _redirectUri);

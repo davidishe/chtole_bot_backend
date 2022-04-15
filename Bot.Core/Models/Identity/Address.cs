@@ -12,10 +12,10 @@ namespace Core.Identity
     public string City { get; set; }
     public string House { get; set; }
     public string ZipCode { get; set; }
-    public int HavenAppUserId { get; set; }
+    public int AppUserId { get; set; }
 
-    [ForeignKey("HavenAppUserId")]
-    public HavenAppUser HavenAppUser { get; set; }
+    [ForeignKey("AppUserId")]
+    public AppUser AppUser { get; set; }
 
   }
 }

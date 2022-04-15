@@ -18,13 +18,13 @@ namespace WebAPI.Controllers
   [Authorize]
   public class RoleController : BaseApiController
   {
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
     private readonly IRoleManagerService _roleManager;
 
 
     // 
-    public RoleController(UserManager<HavenAppUser> userManager, IMapper mapper, IRoleManagerService roleManager)
+    public RoleController(UserManager<AppUser> userManager, IMapper mapper, IRoleManagerService roleManager)
     {
       _mapper = mapper;
       _userManager = userManager;
@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
     public async Task<ActionResult<List<UserToReturnDto>>> GetAllUsers()
     {
       var users = await _userManager.Users.Include(x => x.Address).ToListAsync();
-      var usersToReturn = _mapper.Map<List<HavenAppUser>, List<UserToReturnDto>>(users);
+      var usersToReturn = _mapper.Map<List<AppUser>, List<UserToReturnDto>>(users);
 
       if (usersToReturn != null)
         return Ok(usersToReturn);

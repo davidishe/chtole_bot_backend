@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
     private readonly IGenericRepository<Item> _itemsRepo;
     private readonly IGenericRepository<ItemType> _itemTypeRepo;
     private readonly IMapper _mapper;
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IJobManager _jobManager;
 
 
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
       IGenericRepository<Item> productsRepo,
       IGenericRepository<ItemType> productTypeRepo,
       IMapper mapper,
-      UserManager<HavenAppUser> userManager,
+      UserManager<AppUser> userManager,
       IJobManager jobManager
     )
     {
@@ -153,13 +153,51 @@ namespace WebAPI.Controllers
         authorId: userId,
         chatId: itemDto.ChatId,
         itemTypeId: (int)itemDto.ItemTypeId,
-        itemType: _itemTypeRepo.GetByIdAsync((int)itemDto.ItemTypeId).Result
+        itemType: _itemTypeRepo.GetByIdAsync((int)itemDto.ItemTypeId).Result,
+        status: true
       );
 
       var itemToReturn = await _itemsRepo.AddEntityAsync(item);
       return Ok(itemToReturn);
 
     }
+
+
+
+    [Authorize]
+    [HttpPost]
+    [Route("birthday")]
+    public async Task<ActionResult<Item>> CreateBirthdayEvent(ItemDto itemDto)
+    {
+      var userId = 2;
+      var user = await _userManager.FindByClaimsCurrentUser(HttpContext.User);
+
+      if (user != null)
+        userId = user.Id;
+
+      await SetTimeOut();
+
+      var jobId = _jobManager.AddHappyBirthdayJob(itemDto.CronExpression);
+
+      var item = new Item
+      (
+        messageText: itemDto.MessageText,
+        name: itemDto.Name,
+        jobId: jobId,
+        authorId: userId,
+        chatId: itemDto.ChatId,
+        itemTypeId: (int)itemDto.ItemTypeId,
+        itemType: _itemTypeRepo.GetByIdAsync((int)itemDto.ItemTypeId).Result,
+        status: true
+      );
+
+      var itemToReturn = await _itemsRepo.AddEntityAsync(item);
+      return Ok(itemToReturn);
+
+    }
+
+
+
 
 
     [AllowAnonymous]
@@ -215,23 +253,8 @@ namespace WebAPI.Controllers
 
     #endregion
 
-
     #region 5. Private methods for service functionaluty
-    private Task<string> SaveFileToServer(IFormFile file)
-    {
-      var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-      var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "assets", "images", "products", fileName);
 
-      using (var stream = new FileStream(fullPath, FileMode.Create))
-      {
-        file.CopyTo(stream);
-      }
-
-      var fileDirecoryToReturn = Path.Combine("assets", "images", "products", fileName);
-
-      return Task.FromResult(fileDirecoryToReturn);
-
-    }
 
     private async Task<bool> SetTimeOut()
     {

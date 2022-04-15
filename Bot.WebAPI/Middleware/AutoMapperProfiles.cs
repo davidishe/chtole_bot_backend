@@ -10,9 +10,8 @@ namespace WebAPI.Helpers
 
     public AutoMapperProfiles()
     {
-      CreateMap<HavenAppUser, UserToReturnDto>()
+      CreateMap<AppUser, UserToReturnDto>()
         .ForMember(d => d.PictureUrl, m => m.MapFrom(s => s.PictureUrl))
-        .ForMember(d => d.UserPosition, m => m.MapFrom(s => s.UserPosition.Name))
         .ForMember(d => d.PictureUrl, m => m.MapFrom<UrlPictureForUserReslover>())
         .ForMember(d => d.BankOffice, m => m.MapFrom<UserBankOfficeResolver>())
         .ForMember(d => d.UserRoles, m => m.MapFrom<UserRolesReslover>());

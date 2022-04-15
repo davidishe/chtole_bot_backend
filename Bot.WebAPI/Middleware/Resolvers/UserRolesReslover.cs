@@ -10,22 +10,22 @@ using Microsoft.Extensions.Configuration;
 
 namespace WebAPI.Helpers
 {
-  public class UserRolesReslover : IValueResolver<HavenAppUser, UserToReturnDto, IList<string>>
+  public class UserRolesReslover : IValueResolver<AppUser, UserToReturnDto, IList<string>>
   {
     public UserRolesReslover()
     {
     }
 
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
 
 
-    public UserRolesReslover(UserManager<HavenAppUser> userManager)
+    public UserRolesReslover(UserManager<AppUser> userManager)
     {
       _userManager = userManager;
     }
 
 
-    public IList<string> Resolve(HavenAppUser user, UserToReturnDto destination, IList<string> destMember, ResolutionContext context)
+    public IList<string> Resolve(AppUser user, UserToReturnDto destination, IList<string> destMember, ResolutionContext context)
     {
       var roles = _userManager.GetRolesAsync(user).Result;
       return roles;

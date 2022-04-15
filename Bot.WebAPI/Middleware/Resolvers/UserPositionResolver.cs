@@ -17,13 +17,13 @@
 //     {
 //     }
 
-//     private readonly UserManager<HavenAppUser> _userManager;
+//     private readonly UserManager<AppUser> _userManager;
 //     private readonly IdentityContext _identityContext;
 
 
 
 //     public UserPositionResolver(
-//       UserManager<HavenAppUser> userManager,
+//       UserManager<AppUser> userManager,
 //       IdentityContext identityContext
 //     )
 //     {

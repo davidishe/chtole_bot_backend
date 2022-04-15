@@ -19,7 +19,7 @@ namespace WebAPI.Helpers
     {
     }
 
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IdentityContext _identityContext;
     private readonly IMapper _mapper;
 
@@ -27,7 +27,7 @@ namespace WebAPI.Helpers
 
 
     public UserResolver(
-      UserManager<HavenAppUser> userManager,
+      UserManager<AppUser> userManager,
       IdentityContext identityContext,
       IMapper mapper
     )
@@ -40,8 +40,8 @@ namespace WebAPI.Helpers
     public UserToReturnDto Resolve(Item source, ItemDto destination, UserToReturnDto destMember, ResolutionContext context)
     {
       var userId = _userManager.FindByIdAsync(source.AuthorId.ToString()).Result.Id;
-      var user = _identityContext.Users.Where(x => x.Id == userId).Include(u => u.UserPosition).FirstOrDefault();
-      var userToReturn = _mapper.Map<HavenAppUser, UserToReturnDto>(user);
+      var user = _identityContext.Users.Where(x => x.Id == userId).FirstOrDefault();
+      var userToReturn = _mapper.Map<AppUser, UserToReturnDto>(user);
       return userToReturn;
     }
   }

@@ -48,23 +48,41 @@ namespace EventService.Event
     }
 
 
-    public Task SetHappyBirthdayEvent(string jobId)
+    public async Task<bool> SetHappyBirthdayEvent(string jobId)
     {
+
       var spec = new ItemSpecification();
       var items = _itemsRepo.ListAsync(spec).Result;
       var item = items.Where(x => x.JobId == jobId).FirstOrDefault();
-      // var membersWithBirthday = GetMessageForBirthdayMembers().Result;
 
-      // foreach (var member in membersWithBirthday)
-      // {
-      //   var messageToSend = GetRegularMessageWithSpeakerAsync(item.MessageText).Result;
-      //   _logger.LogInformation($"{DateTime.Now} было отправлено сообщение {messageToSend} в чат {item.ChatId}");
-      //   _telegramService.SendMessage(item.ChatId, messageToSend);
+      var members = await GetBirthdayMembers();
 
-      // }
+      if (members == null)
+        _logger.LogInformation($"oops, there is no chat members with birthday!");
+
+      foreach (var member in members)
+      {
+        var message = item.MessageText;
+        string outputMessage = message.Replace("{человек}", member.Name);
+        _logger.LogInformation(outputMessage);
 
 
-      return Task.CompletedTask;
+
+        //TODO: взять все чаты где данный member участвует и отправить туда сообщения
+
+      }
+      return true;
+    }
+
+
+    private async Task<Member[]> GetBirthdayMembers()
+    {
+
+      var spec = new BaseSpecification<Member>();
+      var members = await _membersRepo.ListAsync(spec);
+      var memberWithBirthday = members.Where(x => x.BirthdayDate.Date.Month == DateTime.Now.Date.Month && x.BirthdayDate.Date.Day == DateTime.Now.Date.Day);
+      var membersArray = memberWithBirthday.ToArray();
+      return membersArray;
     }
 
 

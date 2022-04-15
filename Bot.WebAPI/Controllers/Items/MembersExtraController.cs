@@ -24,13 +24,13 @@ namespace WebAPI.Controllers
 
     private readonly IGenericRepository<Member> _membersRepo;
     private readonly IMapper _mapper;
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
 
 
     public MembersExtraController(
       IGenericRepository<Member> membersRepo,
       IMapper mapper,
-      UserManager<HavenAppUser> userManager
+      UserManager<AppUser> userManager
     )
     {
       _membersRepo = membersRepo;

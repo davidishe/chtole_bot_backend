@@ -5,6 +5,6 @@ namespace Bot.Identity
 {
   public interface ITokenService
   {
-    Task<string> CreateToken(HavenAppUser user);
+    Task<string> CreateToken(AppUser user);
   }
 }

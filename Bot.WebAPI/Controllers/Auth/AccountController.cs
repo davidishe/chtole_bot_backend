@@ -24,15 +24,15 @@ namespace WebAPI.Controllers
   [Authorize]
   public class AccountController : BaseApiController
   {
-    private readonly UserManager<HavenAppUser> _userManager;
-    private readonly SignInManager<HavenAppUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
     private readonly IIdentityService _identityService;
 
     public AccountController(
-      UserManager<HavenAppUser> userManager,
-      SignInManager<HavenAppUser> signInManager,
+      UserManager<AppUser> userManager,
+      SignInManager<AppUser> signInManager,
       ITokenService tokenService,
       IMapper mapper,
       IIdentityService identityService)
@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
         return BadRequest("Пользователь не найден");
 
       var roles = await _userManager.GetRolesAsync(user);
-      var userToReturn = _mapper.Map<HavenAppUser, UserToReturnDto>(user);
+      var userToReturn = _mapper.Map<AppUser, UserToReturnDto>(user);
 
       userToReturn.Token = await _tokenService.CreateToken(user);
       userToReturn.UserRoles = roles;
@@ -104,7 +104,7 @@ namespace WebAPI.Controllers
         return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Пользователь уже существует" } });
       }
 
-      var user = new HavenAppUser
+      var user = new AppUser
       {
         DisplayName = registerDto.DisplayName,
         Email = registerDto.Email,
@@ -126,14 +126,12 @@ namespace WebAPI.Controllers
     [Authorize]
     [HttpPut]
     [Route("update")]
-    public async Task<ActionResult<HavenAppUser>> UpdateProduct([FromBody] UserToReturnDto userDto)
+    public async Task<ActionResult<AppUser>> UpdateProduct([FromBody] UserToReturnDto userDto)
     {
       var user = await _userManager.FindByClaimsCurrentUser(HttpContext.User);
       user.DisplayName = userDto.DisplayName;
       user.UserDescription = userDto.UserDescription;
       user.BankOfficeId = (int)userDto.BankOfficeId;
-      user.UserPositionId = (int)userDto.UserPositionId;
-
 
       var result = _userManager.UpdateAsync(user).Result;
       return Ok(result);

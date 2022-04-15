@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace WebAPI.Helpers
 {
-  public class UrlPictureForUserReslover : IValueResolver<HavenAppUser, UserToReturnDto, string>
+  public class UrlPictureForUserReslover : IValueResolver<AppUser, UserToReturnDto, string>
   {
     public UrlPictureForUserReslover()
     {
@@ -19,7 +19,7 @@ namespace WebAPI.Helpers
       _config = config;
     }
 
-    public string Resolve(HavenAppUser source, UserToReturnDto destination, string destMember, ResolutionContext context)
+    public string Resolve(AppUser source, UserToReturnDto destination, string destMember, ResolutionContext context)
     {
       if (!string.IsNullOrEmpty(source.PictureUrl))
       {

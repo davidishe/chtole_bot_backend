@@ -29,7 +29,7 @@ namespace WebAPI
         var loggerFactory = services.GetRequiredService<ILoggerFactory>();
         try
         {
-          var userManager = services.GetRequiredService<UserManager<HavenAppUser>>();
+          var userManager = services.GetRequiredService<UserManager<AppUser>>();
           var roleManager = services.GetRequiredService<RoleManager<Role>>();
           var identityContext = services.GetRequiredService<IdentityContext>();
 

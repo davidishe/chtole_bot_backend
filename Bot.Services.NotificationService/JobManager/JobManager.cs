@@ -30,6 +30,17 @@ namespace NotificationService.JobManagment
       return jobId;
     }
 
+
+    [Obsolete]
+    public string AddHappyBirthdayJob(string cronExpression)
+    {
+      var timeZone = TimeZone.CurrentTimeZone;
+      var jobId = Guid.NewGuid().ToString();
+      RecurringJob.AddOrUpdate(jobId, () => _eventManager.SetHappyBirthdayEvent(jobId), cronExpression, TimeZoneInfo.Local);
+      return jobId;
+    }
+
+
     public bool UpdateRecurringJob(string jobId, string cronExpression)
     {
       RecurringJob.AddOrUpdate(jobId, () => _eventManager.ExecuteRegularEvent(jobId), cronExpression, TimeZoneInfo.Local);

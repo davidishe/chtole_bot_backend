@@ -11,6 +11,9 @@ namespace NotificationService.JobManagment
     string GetCronExpressionByJobId(string jobId);
     bool DeleteRecurringJob(string jobId);
 
+    public string AddHappyBirthdayJob(string cronExpression);
+
+
 
   }
 

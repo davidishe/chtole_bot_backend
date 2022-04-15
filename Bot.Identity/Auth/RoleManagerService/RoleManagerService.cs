@@ -16,11 +16,11 @@ namespace Bot.Identity.Services
 {
   public class RoleManagerService : IRoleManagerService
   {
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
 
     public RoleManagerService(
-      UserManager<HavenAppUser> userManager,
+      UserManager<AppUser> userManager,
       IMapper mapper)
     {
       _mapper = mapper;

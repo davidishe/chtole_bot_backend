@@ -13,18 +13,18 @@ using Microsoft.Extensions.Configuration;
 namespace WebAPI.Helpers
 {
 
-  public class UserBankOfficeResolver : IValueResolver<HavenAppUser, UserToReturnDto, string>
+  public class UserBankOfficeResolver : IValueResolver<AppUser, UserToReturnDto, string>
   {
     public UserBankOfficeResolver()
     {
     }
 
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IGenericRepository<Office> _officeRepo;
 
 
     public UserBankOfficeResolver(
-      UserManager<HavenAppUser> userManager,
+      UserManager<AppUser> userManager,
       IGenericRepository<Office> officeRepo
     )
     {
@@ -32,7 +32,7 @@ namespace WebAPI.Helpers
       _officeRepo = officeRepo;
     }
 
-    public string Resolve(HavenAppUser source, UserToReturnDto destination, string destMember, ResolutionContext officeRepo)
+    public string Resolve(AppUser source, UserToReturnDto destination, string destMember, ResolutionContext officeRepo)
     {
       var spec = new BaseSpecification<Office>();
       var officeName = _officeRepo.ListAsync(spec).Result.Where(x => x.Id == source.BankOfficeId).FirstOrDefault().Name;

@@ -16,7 +16,7 @@ namespace Identity.Database.SeedData
 {
   public class IdentityContextSeed
   {
-    public static async Task SeedUsersAsync(UserManager<HavenAppUser> userManager, RoleManager<Role> roleManager, ILoggerFactory loggerFactory, IdentityContext context)
+    public static async Task SeedUsersAsync(UserManager<AppUser> userManager, RoleManager<Role> roleManager, ILoggerFactory loggerFactory, IdentityContext context)
     {
       var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
@@ -39,7 +39,7 @@ namespace Identity.Database.SeedData
         {
 
           var itemsData = File.ReadAllText(path + @"/Data/SeedData/Source/users.json");
-          var users = JsonSerializer.Deserialize<List<HavenAppUser>>(itemsData);
+          var users = JsonSerializer.Deserialize<List<AppUser>>(itemsData);
           foreach (var user in users)
           {
             var result = userManager.CreateAsync(user, "Pa$$w0rd").Result;

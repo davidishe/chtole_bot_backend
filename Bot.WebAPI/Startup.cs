@@ -20,6 +20,9 @@ using Bot.Services.Telegram.Extensions;
 using Bot.Identity;
 using Bot.Identity.Database.Extensions;
 using Bot.Identity.Database;
+using Core.Models;
+using Bot.Infrastructure;
+using Infrastructure.Services.TaskManagerService;
 
 namespace WebAPI
 {
@@ -79,6 +82,9 @@ namespace WebAPI
       services.AddCors();
       services.AddAutoMapper(typeof(Startup));
       services.AddApplicationServices();
+      // services.AddSingleton<IReviewerRepository, ReviewerRepository>();
+      services.AddScoped<IDbRepository<Reviewer>, DbRepository<Reviewer>>();
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "NotificationService", Version = "v1" });

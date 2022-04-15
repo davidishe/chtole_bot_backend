@@ -15,16 +15,16 @@ namespace Bot.Identity
   {
     private readonly IConfiguration _config;
     private readonly SymmetricSecurityKey _key;
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
 
-    public TokenService(IConfiguration config, UserManager<HavenAppUser> userManager)
+    public TokenService(IConfiguration config, UserManager<AppUser> userManager)
     {
       _userManager = userManager;
       _config = config;
       _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
     }
 
-    public async Task<string> CreateToken(HavenAppUser user)
+    public async Task<string> CreateToken(AppUser user)
     {
       var claims = new List<Claim>
       {

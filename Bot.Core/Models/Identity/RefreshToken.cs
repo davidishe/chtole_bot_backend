@@ -25,6 +25,6 @@ namespace Core.Domain
     public int UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public HavenAppUser User { get; set; }
+    public AppUser User { get; set; }
   }
 }

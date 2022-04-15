@@ -17,7 +17,7 @@ namespace Bot.Identity.Database.Extensions
     public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
 
-      IdentityBuilder builder = services.AddIdentityCore<HavenAppUser>(opt =>
+      IdentityBuilder builder = services.AddIdentityCore<AppUser>(opt =>
       {
         opt.Password.RequireDigit = false;
         opt.Password.RequiredLength = 4;
@@ -30,7 +30,7 @@ namespace Bot.Identity.Database.Extensions
       b.AddEntityFrameworkStores<IdentityContext>();
       b.AddRoleValidator<RoleValidator<Role>>();
       b.AddRoleManager<RoleManager<Role>>();
-      b.AddSignInManager<SignInManager<HavenAppUser>>();
+      b.AddSignInManager<SignInManager<AppUser>>();
 
 
       // jwt id service

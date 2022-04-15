@@ -14,14 +14,14 @@ namespace Bot.Identity.Services
 {
   public class IdentityService : IIdentityService
   {
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IFacebookAuthService _facebookAuthService;
     private readonly IGoogleAuthService _googleAuthService;
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
 
     public IdentityService(
-      UserManager<HavenAppUser> userManager,
+      UserManager<AppUser> userManager,
       IFacebookAuthService facebookAuthService,
       IGoogleAuthService googleAuthService,
       ITokenService tokenService,
@@ -65,7 +65,7 @@ namespace Bot.Identity.Services
 
       if (user == null)
       {
-        var newUser = new HavenAppUser
+        var newUser = new AppUser
         {
           Email = userInfo.Email,
           UserName = userInfo.Email,
@@ -85,7 +85,7 @@ namespace Bot.Identity.Services
         {
           Token = await _tokenService.CreateToken(userToReturn),
           Success = true,
-          User = _mapper.Map<HavenAppUser, UserToReturnDto>(newUser)
+          User = _mapper.Map<AppUser, UserToReturnDto>(newUser)
         };
       }
 
@@ -93,7 +93,7 @@ namespace Bot.Identity.Services
       {
         Token = await _tokenService.CreateToken(user),
         Success = true,
-        User = _mapper.Map<HavenAppUser, UserToReturnDto>(user)
+        User = _mapper.Map<AppUser, UserToReturnDto>(user)
       };
 
     }
@@ -115,7 +115,7 @@ namespace Bot.Identity.Services
 
       if (user == null)
       {
-        var newUser = new HavenAppUser
+        var newUser = new AppUser
         {
           Email = userInfo.Email,
           UserName = userInfo.Email,
@@ -135,7 +135,7 @@ namespace Bot.Identity.Services
         {
           Token = await _tokenService.CreateToken(userToReturn),
           Success = true,
-          User = _mapper.Map<HavenAppUser, UserToReturnDto>(newUser)
+          User = _mapper.Map<AppUser, UserToReturnDto>(newUser)
         };
       }
 
@@ -143,7 +143,7 @@ namespace Bot.Identity.Services
       {
         Token = await _tokenService.CreateToken(user),
         Success = true,
-        User = _mapper.Map<HavenAppUser, UserToReturnDto>(user)
+        User = _mapper.Map<AppUser, UserToReturnDto>(user)
       };
 
     }

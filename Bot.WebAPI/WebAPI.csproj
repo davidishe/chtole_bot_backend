@@ -6,48 +6,61 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Infrastructure\Infrastructure.csproj"/>
-    <ProjectReference Include="..\Bot.Core\Core.csproj"/>
-    <ProjectReference Include="..\Bot.Services.NotificationService\Bot.Services.NotificationService.csproj"/>
-    <ProjectReference Include="..\Bot.Infrastructure.Specifications\Bot.Infrastructure.Specifications.csproj"/>
-    <ProjectReference Include="..\Bot.Services.Telegram\Bot.Services.Telegram.csproj"/>
-    <ProjectReference Include="..\Bot.Identity\Bot.Identity.csproj"/>
-    <ProjectReference Include="..\Bot.Infrastructure.Database\Bot.Infrastructure.Database.csproj"/>
-    <ProjectReference Include="..\Bot.Identity.Database\Bot.Identity.Database.csproj"/>
+    <ProjectReference Include="..\Bot.Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Bot.Core\Core.csproj" />
+    <ProjectReference Include="..\Bot.Services.NotificationService\Bot.Services.NotificationService.csproj" />
+    <ProjectReference Include="..\Bot.Infrastructure.Specifications\Bot.Infrastructure.Specifications.csproj" />
+    <ProjectReference Include="..\Bot.Services.Telegram\Bot.Services.Telegram.csproj" />
+    <ProjectReference Include="..\Bot.Identity\Bot.Identity.csproj" />
+    <ProjectReference Include="..\Bot.Infrastructure.Database\Bot.Infrastructure.Database.csproj" />
+    <ProjectReference Include="..\Bot.Identity.Database\Bot.Identity.Database.csproj" />
 
 
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dadata" Version="20.10.0"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.14"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1"/>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
-    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.2"/>
-    <PackageReference Include="System.Drawing.Common" Version="4.7.0"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
-    <PackageReference Include="StackExchange.Redis" Version="2.1.39"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.14"/>
+    <PackageReference Include="Dadata" Version="20.10.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.1.39" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.14" />
 
 
 
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7"/>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0-preview1.21075.2"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.5"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.5"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.5"/>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0-preview1.21075.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.5" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
 
 
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Assets\**"/>
-    <Folder Include="Assets\Images\**"/>
+    <Folder Include="wwwroot\Assets\**" />
+    <Folder Include="Assets\Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="publish\web.config" />
+    <_ContentIncludedByDefault Remove="publish\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="publish\appsettings.json" />
+    <_ContentIncludedByDefault Remove="publish\Seed\SeedData\bankoffices.json" />
+    <_ContentIncludedByDefault Remove="publish\Seed\SeedData\items.json" />
+    <_ContentIncludedByDefault Remove="publish\Seed\SeedData\members.json" />
+    <_ContentIncludedByDefault Remove="publish\Seed\SeedData\regions.json" />
+    <_ContentIncludedByDefault Remove="publish\Seed\SeedData\types.json" />
+    <_ContentIncludedByDefault Remove="publish\WebAPI.deps.json" />
+    <_ContentIncludedByDefault Remove="publish\WebAPI.runtimeconfig.json" />
   </ItemGroup>
 
 </Project>

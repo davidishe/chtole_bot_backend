@@ -15,13 +15,13 @@ namespace WebAPI.Controllers
   [Authorize]
   public class AdminController : BaseApiController
   {
-    private readonly UserManager<HavenAppUser> _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
     private readonly IRoleManagerService _roleManager;
 
 
     // 
-    public AdminController(UserManager<HavenAppUser> userManager, IMapper mapper, IRoleManagerService roleManager)
+    public AdminController(UserManager<AppUser> userManager, IMapper mapper, IRoleManagerService roleManager)
     {
       _mapper = mapper;
       _userManager = userManager;
@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
     public async Task<ActionResult<List<UserToReturnDto>>> CreateUser()
     {
       var users = await _userManager.Users.Include(x => x.Address).Include(z => z.UserRoles).ToListAsync();
-      var usersToReturn = _mapper.Map<List<HavenAppUser>, List<UserToReturnDto>>(users);
+      var usersToReturn = _mapper.Map<List<AppUser>, List<UserToReturnDto>>(users);
 
       if (usersToReturn != null) return Ok(usersToReturn);
       return BadRequest("Не удалось получить список пользователей");
@@ -47,8 +47,8 @@ namespace WebAPI.Controllers
     [Route("users/all")]
     public async Task<ActionResult<List<UserToReturnDto>>> GetAllUsers()
     {
-      var users = await _userManager.Users.Include(x => x.Address).Include(z => z.UserRoles).Include(p => p.UserPosition).ToListAsync();
-      var usersToReturn = _mapper.Map<List<HavenAppUser>, List<UserToReturnDto>>(users);
+      var users = await _userManager.Users.Include(x => x.Address).Include(z => z.UserRoles).ToListAsync();
+      var usersToReturn = _mapper.Map<List<AppUser>, List<UserToReturnDto>>(users);
 
       if (usersToReturn != null)
         return Ok(usersToReturn);

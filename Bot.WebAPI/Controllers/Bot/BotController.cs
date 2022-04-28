@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace WebAPI.Controllers
 {
@@ -51,6 +52,10 @@ namespace WebAPI.Controllers
       if (update == null)
         return Ok(404);
 
+      if (update.Message == null)
+        return Ok("Message not found");
+
+
       var message = update.Message;
       if (message == null)
         return Ok(403);
@@ -60,27 +65,60 @@ namespace WebAPI.Controllers
         return Ok("Пришло пустое сообщение");
 
 
-      if (update.Message.Chat == null)
+      if (message.Chat == null)
         return Ok("Нет идентификатора чата");
 
-      var chatId = update.Message.Chat.Id;
-      _logger.LogInformation(Guid.NewGuid().ToString(), null, $"Пришло сообщение на webhook {update.Message}");
+      var chatId = message.Chat.Id;
+      _logger.LogDebug($"Пришло сообщение на webhook {update.Message.Text}");
 
+
+      ///
+      /// создаем клиента
+      ///
       var client = new TelegramBotClient(_telegramToken);
+
+      ///
+      /// проверяем наличие @username в карточке клиента
+      ///
+      if (message.From.Username == null)
+      {
+        await client.SendTextMessageAsync(chatId, "У тебя не заполнен @username в карточке. Заполни и повтори запрос.",
+                                      replyToMessageId: message.MessageId);
+        return Ok("В карточке профиля нет username");
+      }
+
+
+      ///
+      /// можно получить идентификатор чата
+      ///
       if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-            && message.Text.Contains(_botName)
+            && (message.Text.Contains(_botName) || ("@" + message.ReplyToMessage.From.Username == _botName))
+            && message.MessageId > 0
             && message.Text.ToLower().Contains("идентификатор чата"))
       {
         await client.SendTextMessageAsync(chatId, $"Идентификатор чата: {chatId}",
                                                 replyToMessageId: message.MessageId);
       }
 
+
+
+
+
+
       if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-      && message.Text.Contains(_botName)
-      && message.Text.ToLower().Contains("список ревьюеров"))
+            && (message.Text.Contains(_botName) || ("@" + message.ReplyToMessage.From.Username == _botName))
+            && message.MessageId > 0
+            && message.Text.ToLower().Contains("список ревьюеров"))
       {
         var allReviewers = _reviwersRepo.GetAll();
         string text = "";
+
+        if (message.ReplyToMessage != null)
+        {
+          Console.WriteLine(message.ReplyToMessage.From.Username);
+        }
+
+
 
         foreach (var item in allReviewers)
         {
@@ -94,18 +132,22 @@ namespace WebAPI.Controllers
 
 
       if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-      && message.Text.Contains(_botName)
-      && message.Text.ToLower().Contains("я ревьюер"))
+            && (message.Text.Contains(_botName) || ("@" + message.ReplyToMessage.From.Username == _botName))
+            && message.MessageId > 0
+            && message.Text.ToLower().Contains("я ревьюер"))
       {
 
         var allReviewers = _reviwersRepo.GetAll();
         var isReviewerExist = allReviewers.Where(z => z.UserName == message.From.Username).FirstOrDefault();
+
+
         if (isReviewerExist != null)
         {
           await client.SendTextMessageAsync(chatId, $"@{isReviewerExist.UserName} уже был добавлен в качестве ревьюера",
                                                 replyToMessageId: message.MessageId);
           return Ok(200);
         }
+
 
         var reviewer = new Reviewer
         {
@@ -121,10 +163,13 @@ namespace WebAPI.Controllers
       }
 
 
+      ///
       // удаление ревьюера
+      ///
       if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-      && message.Text.Contains(_botName)
-      && message.Text.ToLower().Contains("я ревьюер"))
+            && (message.Text.Contains(_botName) || ("@" + message.ReplyToMessage.From.Username == _botName))
+            && message.MessageId > 0
+            && message.Text.ToLower().Contains("я не ревьюер"))
       {
 
         var allReviewers = _reviwersRepo.GetAll();
@@ -137,13 +182,14 @@ namespace WebAPI.Controllers
 
 
       if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-            && message.Text.Contains(_botName)
-            && message.Text.ToLower().Contains("назначь ревью"))
+            && (message.Text.Contains(_botName) || ("@" + message.ReplyToMessage.From.Username == _botName))
+            && message.MessageId > 0
+            && (message.Text.ToLower().Contains("назначь ревью") || message.Text.ToLower().Contains("назначь инспекцию")))
       {
 
         var reviewers = _reviwersRepo.GetAll();
-        var minDate = reviewers.Max(z => z.LastReviewDate);
-        var entity = reviewers.Where(z => z.LastReviewDate == minDate).FirstOrDefault();
+        var minDate = reviewers.Min(z => z.LastReviewDate);
+        var entity = reviewers.Where(z => z.LastReviewDate <= minDate).FirstOrDefault();
 
 
         // TODO: фиксируем задачу в базе данных для логирования
@@ -157,6 +203,40 @@ namespace WebAPI.Controllers
         entity.LastReviewDate = DateTime.Now.AddMinutes(1);
         await _reviwersRepo.UpdateAsync(entity);
       }
+
+
+      if ((update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
+            && (message.Text.Contains(_botName) || ("@" + message.ReplyToMessage.From.Username == _botName)))
+      {
+
+        var rkm = new ReplyKeyboardMarkup();
+        rkm.Keyboard = new KeyboardButton[][]
+        {
+            new KeyboardButton[]
+            {
+                new KeyboardButton("назначь ревью"),
+                new KeyboardButton("список ревьюеров"),
+            },
+            new KeyboardButton[]
+            {
+                new KeyboardButton("я не ревьюер"),
+                new KeyboardButton("я ревьюер"),
+            },
+
+        };
+        await client.SendTextMessageAsync(message.Chat.Id, "Введи доступную команду", replyMarkup: rkm);
+
+      }
+
+
+
+
+
+
+
+
+
+
       return Ok(200);
     }
 
